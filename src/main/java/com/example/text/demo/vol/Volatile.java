@@ -34,13 +34,13 @@ public class Volatile implements Runnable {
     public static void main(String[] args) throws InterruptedException {
 
         Volatile aVolatile = new Volatile();
-        new Thread(aVolatile, "thread A").start();
 
+        new Thread(aVolatile, "thread A").start();
 
         System.out.println("main 线程正在运行");
 
-
         Scanner sc = new Scanner(System.in);
+
         while (sc.hasNext()) {
             String value = sc.next();
             if (value.equals("1")) {
