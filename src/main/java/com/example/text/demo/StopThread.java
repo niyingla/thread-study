@@ -98,6 +98,7 @@ public class StopThread implements Runnable {
         //shutDown 不在接受新的线程，并且等待之前提交的线程都执行完在关闭，
         //shutDownNow 直接关闭活跃状态的所有的线程 ， 并返回等待中的线程
         poolExecutor.shutdown();
+        //awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）（可以传入阻塞时间）；shutdown()不阻塞。
         while (!poolExecutor.awaitTermination(1,TimeUnit.SECONDS)){
             System.out.println("线程还在执行。。。");
         }
