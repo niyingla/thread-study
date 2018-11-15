@@ -52,7 +52,7 @@ public class PicUtils {
         } catch (Exception e) {
             log.error("【图片压缩】msg=图片压缩失败!", e);
         }
-        //返回结果
+        //返回结果就是这一行
         return imageBytes;
     }
 
