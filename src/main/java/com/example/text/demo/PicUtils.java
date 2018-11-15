@@ -89,13 +89,13 @@ public class PicUtils {
 
         int read = fileInputStream.read(bytes,0,Integer.valueOf(file.length()+""));
 
-        byte[] bytes1 = compressPicForScale(bytes, 128, "1");
+        byte[] bytesTarget = compressPicForScale(bytes, 128, "1");
 
-        File file1 = new File("C:\\Users\\10479\\Downloads\\timg (3).jpg");
+        File fileTarget = new File("C:\\Users\\10479\\Downloads\\timg (3).jpg");
 
-        FileOutputStream fileOutputStream = new FileOutputStream(file1);
+        FileOutputStream fileOutputStream = new FileOutputStream(fileTarget);
 
-        fileOutputStream.write(bytes1);
+        fileOutputStream.write(bytesTarget);
 
         fileOutputStream.flush();
 
