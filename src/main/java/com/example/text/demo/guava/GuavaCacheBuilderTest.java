@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @program: text
- * @description:
+ * @description: guava缓存
  * @author: xiaoye
  * @create: 2018-11-15 11:51
  **/
