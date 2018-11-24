@@ -25,6 +25,7 @@ public class GuavaCacheBuilderTest {
      * refreshAfterWrite是在指定时间内没有被创建/覆盖，则指定时间过后，再次访问时，会去刷新该缓存，在新值没有到来之前，始终返回旧值
      * 跟expire的区别是，指定时间过后，expire是remove该key，下次访问是同步去获取返回新值
      * 而refresh则是指定时间后，不会remove该key，下次访问会触发刷新，新值没有回来时返回旧值
+     * 当Guava Cache中没有key时，将会通过其load方法加载数据，并保存在Cache中。load方法不能返回NULL。
      * @param name
      * @throws Exception
      */
