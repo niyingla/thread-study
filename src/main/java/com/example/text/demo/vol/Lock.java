@@ -34,8 +34,6 @@ public class Lock {
     @PostConstruct
     public void initJedis() {
         jedis = jedisPool.getResource();
-        jedis.setex("11", 10000, "22");
-
     }
 
 
