@@ -29,12 +29,12 @@ public class JedisRedisConfig {
     private long maxWaitMillis;
 
     @Bean
-    public JedisPool redisPoolFactory() {
+    public JedisPool jedisPool() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
         //测试修改密码
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout,password);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout);
         return jedisPool;
     }
 }

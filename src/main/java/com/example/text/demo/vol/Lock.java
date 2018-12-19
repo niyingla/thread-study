@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 
 /**
@@ -20,7 +21,6 @@ public class Lock {
     @Autowired
     private JedisPool jedisPool;
 
-    private Jedis jedis = jedisPool.getResource();
 
     private static final Long DEFAULT_SLEEP_TIME = 100L;
     private static final Long TIME = 10L;
@@ -30,8 +30,17 @@ public class Lock {
     private static final String SET_WITH_EXPIRE_TIME = "PX";
     private static final String LOCK_PREFIX = "LOCK_PREFIX";
 
+    private Jedis jedis;
+
+    @PostConstruct
+    public void initJedis() {
+        jedis = jedisPool.getResource();
+
+    }
+
 
     public  boolean tryLock(String key, String request) {
+
         //                               String key,     String value,   String nxxx,      String expx,    int time
         String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 10 * TIME);
 
