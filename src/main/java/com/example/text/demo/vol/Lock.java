@@ -24,9 +24,9 @@ public class Lock {
 
     private static final Long DEFAULT_SLEEP_TIME = 100L;
     private static final Long TIME = 10L;
-    private static final String LOCK_MSG = "ok";
+    private static final String LOCK_MSG = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
-    private static final String UNLOCK_MSG = "ok";
+    private static final String UNLOCK_MSG = "OK";
     private static final String SET_WITH_EXPIRE_TIME = "PX";
     private static final String LOCK_PREFIX = "LOCK_PREFIX";
 
