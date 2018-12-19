@@ -86,9 +86,9 @@ public class Lock {
         //lua script                           key集合     参数集合所以下面时两个    Collections
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         //上面的语句含义就是获取第一个key的值 如果等于第一个参数 就执行删除第一个key 不然什么都不做
-        Object result = null;
+        Long result = null;
         if (jedis instanceof Jedis) {
-            result = ((Jedis) this.jedis).eval(script, Collections.singletonList(LOCK_PREFIX + key), Collections.singletonList(request));
+            result = (Long) ((Jedis) this.jedis).eval(script, Collections.singletonList(LOCK_PREFIX + key), Collections.singletonList(request));
 //        }else if (jedis instanceof JedisCluster){
 //            result = ((JedisCluster)this.jedis).eval(script, Collections.singletonList(LOCK_PREFIX + key), Collections.singletonList(request));
         } else {
@@ -96,7 +96,7 @@ public class Lock {
             return false;
         }
 
-        if (UNLOCK_MSG.equals(result)) {
+        if (result == 1L) {
             return true;
         } else {
             return false;
