@@ -17,8 +17,16 @@ public class TextApplicationTests {
 
     @Test
     public void contextLoads() {
+        //获取锁
         boolean tryLock = lock.tryLock("11", "222");
         System.out.println(tryLock);
+        //重置锁
+        try {
+            lock.lock("11", "2222",100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //删除第一个锁
         boolean unlock = lock.unlock("11", "222");
         System.out.println(unlock);
     }

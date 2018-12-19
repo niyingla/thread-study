@@ -23,10 +23,9 @@ public class Lock {
 
 
     private static final Long DEFAULT_SLEEP_TIME = 100L;
-    private static final Long TIME = 1000L;
+    private static final Long TIME = 100L;
     private static final String LOCK_MSG = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
-    private static final String UNLOCK_MSG = "OK";
     private static final String SET_WITH_EXPIRE_TIME = "PX";
     private static final String LOCK_PREFIX = "LOCK_PREFIX";
 
@@ -42,7 +41,7 @@ public class Lock {
 
     public boolean tryLock(String key, String request) {
         //                               String key,     String value,   String nxxx,      String expx,    int time
-        String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 1000 * TIME);
+        String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 10 * TIME);
 
         if (LOCK_MSG.equals(result)) {
             return true;
