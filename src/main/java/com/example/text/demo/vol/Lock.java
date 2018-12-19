@@ -41,7 +41,7 @@ public class Lock {
 
     public boolean tryLock(String key, String request) {
         //                               String key,     String value,   String nxxx,      String expx,    int time
-        String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 10 * TIME);
+        String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 100 * TIME);
 
         if (LOCK_MSG.equals(result)) {
             return true;
