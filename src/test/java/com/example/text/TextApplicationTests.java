@@ -17,9 +17,9 @@ public class TextApplicationTests {
 
     @Test
     public void contextLoads() {
-        boolean tryLock = lock.tryLock("111", "222");
+        boolean tryLock = lock.tryLock("11", "222");
         System.out.println(tryLock);
-        boolean unlock = lock.unlock("111", "222");
+        boolean unlock = lock.unlock("11", "222");
         System.out.println(unlock);
     }
 
