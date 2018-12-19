@@ -39,6 +39,12 @@ public class Lock {
     }
 
 
+    /**
+     * 单次尝试获取锁
+     * @param key
+     * @param request
+     * @return
+     */
     public boolean tryLock(String key, String request) {
         //                               String key,     String value,   String nxxx,      String expx,    int time
         String result = this.jedis.set(LOCK_PREFIX + key, request, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 100 * TIME);
@@ -51,6 +57,12 @@ public class Lock {
     }
 
 
+    /**
+     * 按睡眠间隔获取锁
+     * @param key
+     * @param request
+     * @throws InterruptedException
+     */
     public void lock(String key, String request) throws InterruptedException {
 
         for (; ; ) {
@@ -65,6 +77,14 @@ public class Lock {
 
     }
 
+    /**
+     * 设置超时时间获取锁
+     * @param key
+     * @param request
+     * @param blockTime
+     * @return
+     * @throws InterruptedException
+     */
     //自定义阻塞时间
     public boolean lock(String key, String request, int blockTime) throws InterruptedException {
 
@@ -81,6 +101,12 @@ public class Lock {
         return false;
     }
 
+    /**
+     * 释放指定value锁
+     * @param key
+     * @param request
+     * @return
+     */
     public boolean unlock(String key, String request) {
         //lua script                           key集合     参数集合所以下面时两个    Collections
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
