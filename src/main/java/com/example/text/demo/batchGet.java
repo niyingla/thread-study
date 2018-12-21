@@ -24,7 +24,7 @@ public class batchGet {
 
 //        //建立线程集合
 //        BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>(10);
-//        //创建线程池  当任务个数超过queue时会抛异常
+//        //创建线程池  当任务个数超过queue时会抛异常   为线程池的基本大小 为线程池最大线程大小 则是线程空闲后的存活时间 用于存放任务的阻塞队列
 //        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(5, 100, 1, TimeUnit.MILLISECONDS, queue);
 
         //不限定等待长度的线程组
