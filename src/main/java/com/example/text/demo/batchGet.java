@@ -1,6 +1,7 @@
 package com.example.text.demo;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -19,7 +20,7 @@ public class batchGet {
         int count = 370;
 
         //默认线程数
-        int threads = 5;
+        int threads = 7;
 
 //        //建立线程集合
 //        BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>(10);
@@ -27,7 +28,7 @@ public class batchGet {
 //        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(5, 100, 1, TimeUnit.MILLISECONDS, queue);
 
         //不限定等待长度的线程组
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(threads);
         //判断是否还有数据没有取完
         while (count > 0) {
 

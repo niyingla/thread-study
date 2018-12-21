@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TextApplication.class)
 public class TextApplicationTests {
@@ -56,6 +58,6 @@ public class TextApplicationTests {
 
     @Test
     public void contextLoads() {
-        this.t3();
+        this.t2();
     }
 }
