@@ -21,7 +21,7 @@ public class TextApplicationTests {
      */
     private void ti() {
         //获取锁
-        boolean tryLock = lock.tryLock("11", "222");
+        boolean tryLock = this.lock.tryLock("11", "222");
         System.out.println(tryLock);
         //重置锁
         try {
