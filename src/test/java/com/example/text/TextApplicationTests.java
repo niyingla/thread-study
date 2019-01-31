@@ -19,7 +19,8 @@ public class TextApplicationTests {
     /**
      * 测试超时删锁
      */
-    private void ti() {
+    @Test
+    public void ti() {
         //获取锁
         boolean tryLock = this.lock.tryLock("11", "222");
         System.out.println(tryLock);
@@ -38,7 +39,8 @@ public class TextApplicationTests {
     /**
      * 每秒大概50个 上锁删除锁
      */
-    private void t2() {
+    @Test
+    public void t2() {
         long l = System.currentTimeMillis();
         for (int i = 0; i < 1000; i++) {
             //获取锁
