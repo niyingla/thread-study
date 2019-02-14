@@ -53,7 +53,7 @@ public class TextApplicationTests {
             System.out.println(unlock);
         }
         stopWatch.stop();
-        System.out.println("总共费时：" + stopWatch.getTotalTimeMillis());
+        System.out.println("总共费时：" + stopWatch.getTotalTimeMillis()+" 毫秒");
     }
 
     private void t3(){
