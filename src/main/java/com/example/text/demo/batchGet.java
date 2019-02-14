@@ -17,7 +17,7 @@ public class batchGet {
         AtomicInteger atomicInteger = new AtomicInteger(0);
 
         //总记录数
-        int count = 370;
+        int count = 372;
 
         //默认线程数
         int threads = 7;
@@ -45,8 +45,8 @@ public class batchGet {
                 executorService.execute(() -> {
                     try {
                         Thread.sleep(3000);
-                        int i1 = atomicInteger.addAndGet(1);
-                        System.out.println("第" + i1 + "次取十条");
+                        int fetchCount = atomicInteger.addAndGet(1);
+                        System.out.println("第" + fetchCount + "次取十条");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
