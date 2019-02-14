@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.StopWatch;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,7 +42,8 @@ public class TextApplicationTests {
      */
     @Test
     public void t2() {
-        long l = System.currentTimeMillis();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         for (int i = 0; i < 1000; i++) {
             //获取锁
             boolean tryLock = lock.tryLock("11", "222");
@@ -50,7 +52,8 @@ public class TextApplicationTests {
             boolean unlock = lock.unlock("11", "222");
             System.out.println(unlock);
         }
-        System.out.println("总共费时：" + (System.currentTimeMillis() - l));
+        stopWatch.stop();
+        System.out.println("总共费时：" + stopWatch.getTotalTimeMillis());
     }
 
     private void t3(){
