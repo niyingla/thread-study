@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StopWatch;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,6 +17,12 @@ public class TextApplicationTests {
 
     @Autowired
     private Lock lock;
+
+    /**
+     * 获取容器中同一类型对象
+     */
+    @Autowired
+    private Map<String, Lock> lockMap;
 
     /**
      * 测试超时删锁
@@ -56,8 +63,13 @@ public class TextApplicationTests {
         System.out.println("总共费时：" + stopWatch.getTotalTimeMillis()+" 毫秒");
     }
 
-    private void t3(){
-
+    /**
+     * 测试map类型注入
+     */
+    @Test
+    public void t3(){
+        int size = lockMap.size();
+        System.out.println(size);
     }
 
 

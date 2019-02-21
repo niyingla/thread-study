@@ -1,6 +1,7 @@
 package com.example.text.demo.vol;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -14,6 +15,8 @@ import java.util.Collections;
  * @author: xiaoye
  * @create: 2018-11-27 16:48
  **/
+//@Component("sss") 指定容器名称
+//默认就是类名  首字母小写
 @Component
 public class Lock {
 
