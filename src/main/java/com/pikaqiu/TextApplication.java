@@ -1,4 +1,4 @@
-package com.example.text;
+package com.pikaqiu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

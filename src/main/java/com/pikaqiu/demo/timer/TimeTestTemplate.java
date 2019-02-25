@@ -1,4 +1,4 @@
-package com.example.text.demo.timer;
+package com.pikaqiu.demo.timer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.example.text.demo;
+package com.pikaqiu.demo;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;

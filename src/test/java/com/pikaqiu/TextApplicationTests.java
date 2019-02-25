@@ -1,6 +1,6 @@
-package com.example.text;
+package com.pikaqiu;
 
-import com.example.text.demo.vol.Lock;
+import com.pikaqiu.demo.vol.Lock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StopWatch;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TextApplication.class)

@@ -1,4 +1,4 @@
-package com.example.text.demo.config;
+package com.pikaqiu.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

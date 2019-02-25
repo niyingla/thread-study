@@ -1,4 +1,4 @@
-package com.example.text.demo.timer;
+package com.pikaqiu.demo.timer;
 
 import org.junit.Test;
 
