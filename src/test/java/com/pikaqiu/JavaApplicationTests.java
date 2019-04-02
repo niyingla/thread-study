@@ -6,5 +6,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = JavaApplication.class)
-public class TextApplicationTests {
+public class JavaApplicationTests {
 }

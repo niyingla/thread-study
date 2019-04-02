@@ -17,7 +17,7 @@ public class TestLambda {
 			new Employee(105, "田七", 38, 5555.55)
 	);
 	
-	@Test
+	@Test 
 	public void test1(){
 		Collections.sort(emps, (e1, e2) -> {
 			if(e1.getAge() == e2.getAge()){
