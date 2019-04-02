@@ -18,7 +18,12 @@ public class ForkJoinCalculate extends RecursiveTask<Long>{
 		this.start = start;
 		this.end = end;
 	}
-	
+
+	public static void main(String[] args) {
+		ForkJoinCalculate forkJoinCalculate = new ForkJoinCalculate(1L, 5000000L);
+		Long compute = forkJoinCalculate.compute();
+		System.out.println(compute);
+	}
 	@Override
 	protected Long compute() {
 		long length = end - start;

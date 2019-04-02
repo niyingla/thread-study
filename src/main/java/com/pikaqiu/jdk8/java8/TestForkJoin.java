@@ -1,10 +1,10 @@
 package com.pikaqiu.jdk8.java8;
 
+import org.junit.Test;
+
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.stream.LongStream;
-
-import org.junit.Test;
 
 public class TestForkJoin {
 	
@@ -13,7 +13,7 @@ public class TestForkJoin {
 		long start = System.currentTimeMillis();
 		
 		ForkJoinPool pool = new ForkJoinPool();
-		ForkJoinTask<Long> task = new ForkJoinCalculate(0L, 10000000000L);
+		ForkJoinTask<Long> task = new ForkJoinCalculate(0L, 100000000L);
 		
 		long sum = pool.invoke(task);
 		System.out.println(sum);
@@ -29,7 +29,7 @@ public class TestForkJoin {
 		
 		long sum = 0L;
 		
-		for (long i = 0L; i <= 10000000000L; i++) {
+		for (long i = 0L; i <= 100000000L; i++) {
 			sum += i;
 		}
 		
@@ -44,7 +44,7 @@ public class TestForkJoin {
 	public void test3(){
 		long start = System.currentTimeMillis();
 		
-		Long sum = LongStream.rangeClosed(0L, 10000000000L)
+		Long sum = LongStream.rangeClosed(0L, 100000000L)
 							 .parallel()
 							 .sum();
 		

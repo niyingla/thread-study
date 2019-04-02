@@ -3,10 +3,7 @@ package com.pikaqiu.jdk8.exer;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class TestTransaction {
@@ -35,7 +32,7 @@ public class TestTransaction {
 	public void test1(){
 		transactions.stream()
 					.filter((t) -> t.getYear() == 2011)
-					.sorted((t1, t2) -> Integer.compare(t1.getValue(), t2.getValue()))
+					.sorted(Comparator.comparingInt(Transaction::getValue))
 					.forEach(System.out::println);
 	}
 	
