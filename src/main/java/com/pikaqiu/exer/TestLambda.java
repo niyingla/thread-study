@@ -1,12 +1,11 @@
 package com.pikaqiu.exer;
 
+import com.pikaqiu.java8.Employee;
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import org.junit.Test;
-
-import com.atguigu.java8.Employee;
 
 public class TestLambda {
 	
