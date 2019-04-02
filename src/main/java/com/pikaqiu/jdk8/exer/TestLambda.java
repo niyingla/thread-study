@@ -1,6 +1,6 @@
 package com.pikaqiu.jdk8.exer;
 
-import com.pikaqiu.java8.Employee;
+import com.pikaqiu.jdk8.java8.Employee;
 import org.junit.Test;
 
 import java.util.Arrays;
