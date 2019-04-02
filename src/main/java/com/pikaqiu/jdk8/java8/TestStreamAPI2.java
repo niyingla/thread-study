@@ -3,6 +3,7 @@ package com.pikaqiu.jdk8.java8;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -61,7 +62,7 @@ public class TestStreamAPI2 {
 	@Test
 	public void test2(){
 		Optional<Employee> op = emps.stream()
-			.sorted((e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()))
+			.sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
 			.findFirst();
 		
 		System.out.println(op.get());
@@ -82,14 +83,12 @@ public class TestStreamAPI2 {
 		
 		System.out.println(count);
 		
-		Optional<Double> op = emps.stream()
-			.map(Employee::getSalary)
-			.max(Double::compare);
+		Optional<Double> op = emps.stream().map(Employee::getSalary).max(Double::compare);
 		
 		System.out.println(op.get());
 		
 		Optional<Employee> op2 = emps.stream()
-			.min((e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()));
+			.min(Comparator.comparingDouble(Employee::getSalary));
 		
 		System.out.println(op2.get());
 	}

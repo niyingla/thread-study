@@ -91,8 +91,7 @@ public class TestStreamAPI3 {
 
         System.out.println(max.get());
 
-        Optional<Employee> op = emps.stream()
-                .collect(Collectors.minBy((e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary())));
+        Optional<Employee> op = emps.stream().min(Comparator.comparingDouble(Employee::getSalary));
 
         System.out.println(op.get());
 
