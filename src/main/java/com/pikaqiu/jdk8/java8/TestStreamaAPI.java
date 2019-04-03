@@ -1,12 +1,12 @@
 package com.pikaqiu.jdk8.java8;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
-
-import org.junit.Test;
 
 /*
  * 一、Stream API 的操作步骤：
@@ -57,7 +57,7 @@ public class TestStreamaAPI {
 	);
 	
 	/*
-	  筛选与切片
+	   筛选与切片
 		filter——接收 Lambda ， 从流中排除某些元素。
 		limit——截断流，使其元素不超过给定数量。
 		skip(n) —— 跳过元素，返回一个扔掉了前 n 个元素的流。若流中元素不足 n 个，则返回一个空流。与 limit(n) 互补
