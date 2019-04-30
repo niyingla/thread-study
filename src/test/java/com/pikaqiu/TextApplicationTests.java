@@ -45,6 +45,8 @@ public class TextApplicationTests {
 
     /**
      * 每秒大概50个 上锁删除锁
+     *
+     *  配置正常大概能有500-600个/s
      */
     @Test
     public void t2() {

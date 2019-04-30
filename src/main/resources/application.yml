@@ -10,3 +10,16 @@ spring:
         max-active: 8
         max-wait: -1
         max-idle: 8
+
+#spring:
+#  redis:
+#    host: 192.168.7.28
+#    password: foobared
+#    port: 6379
+#    timeout: 20000
+#    jedis:
+#      pool:
+#        min-idle: 0
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 8
