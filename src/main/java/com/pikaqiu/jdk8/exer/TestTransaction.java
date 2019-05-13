@@ -128,7 +128,7 @@ public class TestTransaction {
 	@Test
 	public void test8(){
 		Optional<Transaction> op = transactions.stream()
-					.min((t1, t2) -> Integer.compare(t1.getValue(), t2.getValue()));
+					.min(Comparator.comparingInt(Transaction::getValue));
 		
 		System.out.println(op.get());
 	}
