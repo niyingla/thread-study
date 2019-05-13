@@ -51,7 +51,7 @@ public class TestTransaction {
 		transactions.stream()
 					.filter((t) -> t.getTrader().getCity().equals("Cambridge"))
 					.map(Transaction::getTrader)
-					.sorted((t1, t2) -> t1.getName().compareTo(t2.getName()))
+					.sorted(Comparator.comparing(Trader::getName))
 					.distinct()
 					.forEach(System.out::println);
 	}
