@@ -1,6 +1,8 @@
 package com.pikaqiu.demo.guava;
 
 import com.google.common.cache.*;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,10 +17,13 @@ public class GuavaCacheBuilderTest {
     public static void main(String[] args) throws Exception {
         GuavaCacheBuilderTest cache = new GuavaCacheBuilderTest();
         cache.getNameLoadingCache("bixiao");
+
+        biMapDemo();
+
+
     }
 
     /**
-     *
      * loading 是一个加载缓存的获取方法
      * expireAfterWrite是在指定项在一定时间内没有创建/覆盖时，会移除该key，下次取的时候从loading中取
      * expireAfterAccess是指定项在一定时间内没有读写，会移除该key，下次取的时候从loading中取
@@ -26,6 +31,7 @@ public class GuavaCacheBuilderTest {
      * 跟expire的区别是，指定时间过后，expire是remove该key，下次访问是同步去获取返回新值
      * 而refresh则是指定时间后，不会remove该key，下次访问会触发刷新，新值没有回来时返回旧值
      * 当Guava Cache中没有key时，将会通过其load方法加载数据，并保存在Cache中。load方法不能返回NULL。
+     *
      * @param name
      * @throws Exception
      */
@@ -57,6 +63,19 @@ public class GuavaCacheBuilderTest {
         System.out.println(cache.get(name));
 
         System.out.println(cache.get("aaa"));
+    }
+
+    /**
+     * 双向map
+     */
+    public static void biMapDemo(){
+        BiMap<String, String> weekNameMap = HashBiMap.create();
+
+        weekNameMap.put("周一", "皮卡丘");
+        weekNameMap.put("皮卡丘", "周一");
+
+        System.out.println(weekNameMap.get("周一"));
+        System.out.println(weekNameMap.inverse().get("皮卡丘"));
     }
 }
 
