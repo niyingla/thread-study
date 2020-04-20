@@ -34,7 +34,7 @@ public class JedisRedisConfig {
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
         //测试修改密码
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout,password);
         return jedisPool;
     }
 }
