@@ -2,7 +2,6 @@ package com.pikaqiu.demo.timer;
 
 import com.pikaqiu.TextApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,7 +22,6 @@ public abstract class TimeTestTemplateWithSpring {
     /**
      * 计时方法
      */
-    @Test
     public void countTime() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
