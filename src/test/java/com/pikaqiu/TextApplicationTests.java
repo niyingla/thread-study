@@ -2,6 +2,7 @@ package com.pikaqiu;
 
 import com.pikaqiu.demo.vol.Lock;
 import com.pikaqiu.demo.vol.RedisLock;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StopWatch;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TextApplication.class)
 public class TextApplicationTests {
@@ -78,9 +80,25 @@ public class TextApplicationTests {
 
     @Test
     public void ti111() throws InterruptedException {
-        for (int i = 0; i < 5000; i++) {
-            ti222();
+        long timeMillis = System.currentTimeMillis();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        final Semaphore semaphore = new Semaphore(500);
+        final CountDownLatch countDownLatch = new CountDownLatch(5000);
+        for (int i = 0; i < 5000 ; i++) {
+            executorService.execute(() -> {
+                try {
+//                    semaphore.acquire();
+                    ti222();
+//                    semaphore.release();
+                } catch (Exception e) {
+                    log.error("exception", e);
+                }
+                countDownLatch.countDown();
+            });
         }
+        countDownLatch.await();
+        executorService.shutdown();
+        System.out.println(System.currentTimeMillis() - timeMillis);
     }
 
 
@@ -88,19 +106,18 @@ public class TextApplicationTests {
         RedisLock redisLock1 = new RedisLock("lock");
         //获取锁
         boolean tryLock = redisLock1.tryLock(1000, TimeUnit.MILLISECONDS);
-        System.out.println(tryLock);
         //重置锁
-        RedisLock redisLock2 = new RedisLock("lock");
-        boolean lock = redisLock2.tryLock();
-        System.out.println(lock);
+//        RedisLock redisLock2 = new RedisLock("lock");
+//        boolean lock = redisLock2.tryLock();
+//        System.out.println(lock);
 
         //删除第一个锁
         redisLock1.unlock();
 
         //获取锁
-        RedisLock redisLock4 = new RedisLock("lock");
-        boolean tryLock4 = redisLock4.tryLock(1000,TimeUnit.MILLISECONDS);
-        System.out.println(tryLock4);
+//        RedisLock redisLock4 = new RedisLock("lock");
+//        boolean tryLock4 = redisLock4.tryLock(1000,TimeUnit.MILLISECONDS);
+//        System.out.println(tryLock4);
     }
     @Test
     public void contextLoads() {
