@@ -1,6 +1,7 @@
 package com.pikaqiu;
 
 import com.pikaqiu.demo.vol.Lock;
+import com.pikaqiu.demo.vol.RedisLock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StopWatch;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TextApplication.class)
@@ -74,6 +76,32 @@ public class TextApplicationTests {
     }
 
 
+    @Test
+    public void ti111() throws InterruptedException {
+        for (int i = 0; i < 5000; i++) {
+            ti222();
+        }
+    }
+
+
+    public void ti222() throws InterruptedException {
+        RedisLock redisLock1 = new RedisLock("lock");
+        //获取锁
+        boolean tryLock = redisLock1.tryLock(1000, TimeUnit.MILLISECONDS);
+        System.out.println(tryLock);
+        //重置锁
+        RedisLock redisLock2 = new RedisLock("lock");
+        boolean lock = redisLock2.tryLock();
+        System.out.println(lock);
+
+        //删除第一个锁
+        redisLock1.unlock();
+
+        //获取锁
+        RedisLock redisLock4 = new RedisLock("lock");
+        boolean tryLock4 = redisLock4.tryLock(1000,TimeUnit.MILLISECONDS);
+        System.out.println(tryLock4);
+    }
     @Test
     public void contextLoads() {
         this.t2();
