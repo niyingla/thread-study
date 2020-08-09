@@ -1,0 +1,29 @@
+主从复制步骤
+
+#1 备份数据sql
+mysqldump --master-data=2 #记录日志点
+ --single-transaction #保证实物一致 --routines #备份存储过程 --triggers 触发器  --events 事件 
+-uroot -p imooc_db > 文件名.sql
+#记住日志信息 MASTER_LOG_FILE='*' , MASTER_LOG_POS=*; #二进制文件名和日志点
+
+#2 文件拷贝到其他同步节点
+
+#3 创建从节点库 并导入数据
+create database imooc_db;
+imooc_db < 文件名.sql
+
+#4主数据库创建一个用户和密码并授权
+授权语句 grant replication slave on *.*  to 'yonghu'@'ip'
+
+#5主和从节点建立链路从节点执行
+change master to master_host='',master_user='',master_password='',MASTER_LOG_FILE='*' , MASTER_LOG_POS=*
+# show slave status ; 展示链路信息
+
+#6如果两侧名字不一致 
+change replication filter replicate_rewrite_db=((主db),(从db))
+
+#7启动复制链路
+start slave;
+
+#8关闭主从
+reset slave all;
