@@ -1,14 +1,11 @@
 package com.pikaqiu.My;
 
-import lombok.Data;
-
 /**
  * @program: concurrency
  * @description: 枚举示例
  * @author: xiaoye
  * @create: 2020-06-15 23:05
  **/
-@Data
 public class Pizza {
 
     private PizzaStatus status;
@@ -76,6 +73,14 @@ public class Pizza {
     public void printTimeToDeliver() {
         System.out.println("Time to delivery is " +
                 this.getStatus().getTimeToDelivery());
+    }
+
+    public PizzaStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PizzaStatus status) {
+        this.status = status;
     }
 
     public static void main(String[] args) {
