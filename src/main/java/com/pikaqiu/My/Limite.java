@@ -24,6 +24,7 @@ public class Limite {
   // 根据IP分不同的令牌桶, 每天自动清理缓存
   private static LoadingCache<String, RateLimiter> caches = CacheBuilder.newBuilder()
       .maximumSize(5)
+//      .maximumWeight(20) 二选一
       .expireAfterWrite(1, TimeUnit.DAYS)
       .build(new CacheLoader<String, RateLimiter>() {
         @Override
@@ -46,16 +47,15 @@ public class Limite {
   }
 
   public static void main(String[] args) throws Exception{
-//    limit();
+    limit();
 //    redPackage1();
-    redPackage2();
-
+//    redPackage2();
 
   }
 
 
   private static void limit() throws InterruptedException, ExecutionException {
-    for (int i = 0; i < 1100; i++) {
+    for (int i = 0; i < 1000; i++) {
       // 模拟实际业务请求
       Thread.sleep(100);
       login(i);
