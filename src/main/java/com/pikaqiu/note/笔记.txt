@@ -1,0 +1,14 @@
+jstat -class -【pid】
+查看类加载信息
+
+jstat -compiler -【pid】
+查看类编译信息
+
+jstat -gc -【pid】
+查看各个区域内存使用和未使用情况
+
+查看堆详细信息 各个区域配置大小 实际使用等详细信息
+jmap -heap -【pid】
+
+下载内存信息 b 二进制格式
+jmap -dump:format=b,file=dump.dat 【pid】
