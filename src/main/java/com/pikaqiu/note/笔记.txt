@@ -30,3 +30,16 @@ CATALINA_OPTS="$CATALINA_OPTS
 #‐Dcom.sun.management.jmxremote.port=9999 ：JMX远程连接端口
 #‐Dcom.sun.management.jmxremote.authenticate=false ：不进行身份认证，任何用户都可以连接
 #‐Dcom.sun.management.jmxremote.ssl=false ：不使用ssl
+
+垃圾扫描算法
+1 引用计数 2可达性分析（gcRoot）
+
+垃圾回收算法
+标记清除 标记压缩（年老代常用） 复制算法（年轻代常用）
+
+垃圾回收器
+serial（中断串行回收） parallel（中断多线程并行回收） cms (初始标记阶段和重新标记阶段中断但时间很短 停顿最好的 并发) G1
+
+常用搭配
+新+老 1 CMS parNew+CMS（控制停顿时间 算法标记清除 ）  2 paraller  paraller Scavenge + paraller （吞吐大）Old 3 G1  4 serial+ serial+serial Old
+一般来说 新生代是复制算法 老年代是标记整理算法
