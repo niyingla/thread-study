@@ -1,3 +1,9 @@
+jps -l
+查看运行的java线程id和文件名
+
+jinfo -flags 【pid】
+查看运行指定的参数信息
+
 jstat -class -【pid】
 查看类加载信息
 
