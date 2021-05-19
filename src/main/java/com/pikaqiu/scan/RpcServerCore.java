@@ -1,7 +1,6 @@
-package com.apec.rpc;
+package com.pikaqiu.scan;
 
-import com.apec.annotation.HttpRpcServer;
-import com.apec.commons.utils.StringUtils;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,15 +42,15 @@ public class RpcServerCore implements ApplicationContextAware {
       for (Resource r : resources) {
         MetadataReader reader = metaReader.getMetadataReader(r);
         //判断是否代理类
-        boolean rpcServerCase = reader.getAnnotationMetadata().hasAnnotation(HttpRpcServer.class.getName());
-        if (rpcServerCase) {
+//        boolean rpcServerCase = reader.getAnnotationMetadata().hasAnnotation(HttpRpcServer.class.getName());
+//        if (rpcServerCase) {
           //获取代理类对象
-          Class<?> proxyClass = getClass().getClassLoader().loadClass(reader.getClassMetadata().getClassName());
+//          Class<?> proxyClass = getClass().getClassLoader().loadClass(reader.getClassMetadata().getClassName());
           //获取代理后对象
-          Object interfaceInfo = ProxyFactory.getInterfaceInfo(proxyClass);
+//          Object interfaceInfo = ProxyFactory.getInterfaceInfo(proxyClass);
           //注册到spring
-          defaultListableBeanFactory.registerSingleton(StringUtils.lowerFirst(proxyClass.getSimpleName()), interfaceInfo);
-        }
+//          defaultListableBeanFactory.registerSingleton(StringUtils.lowerFirst(proxyClass.getSimpleName()), interfaceInfo);
+//        }
       }
     } catch (Exception e) {
       e.printStackTrace();
