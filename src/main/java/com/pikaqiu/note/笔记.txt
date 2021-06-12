@@ -4,6 +4,9 @@ jps -l
 jinfo -flags 【pid】
 查看运行指定的参数信息
 
+jstat -gcutil 【pid】
+查看运行内存各个区域内存信息
+
 jstat -class -【pid】
 查看类加载信息
 
@@ -12,6 +15,8 @@ jstat -compiler -【pid】
 
 jstat -gc -【pid】
 查看各个区域内存使用和未使用情况
+
+javac 编译 、javap 反编译
 
 查看堆详细信息 各个区域配置大小 实际使用等详细信息
 jmap -heap -【pid】
