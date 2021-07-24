@@ -1,7 +1,10 @@
 package com.pikaqiu.syncResult;
 
+import com.google.common.collect.Lists;
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

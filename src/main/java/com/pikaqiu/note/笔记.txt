@@ -22,10 +22,13 @@ javac 编译 、javap 反编译
 jmap -heap -【pid】
 
 下载内存信息 b 二进制格式 文件名字随便取
-jmap -dump:format=b,file=dump.dat 【pid】
+jmap -dump:format=b,file=dump.hprof 【pid】
 
 查看线程死锁信息
 jstack 【pid】
+
+打印线程信息
+jstack -l 【pid】
 
 jvisualvm（java自带监控） 使用jmx参数
 #在tomcat的bin目录下，修改catalina.sh，添加如下的参数
