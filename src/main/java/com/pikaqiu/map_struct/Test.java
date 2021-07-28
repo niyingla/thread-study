@@ -1,5 +1,8 @@
 package com.pikaqiu.map_struct;
+import org.springframework.core.annotation.AnnotationUtils;
+
 import java.util.Date;
+import java.util.Map;
 
 /**
  * <p> test </p>
@@ -21,4 +24,16 @@ public class Test {
     System.out.println(personDTO);
 
   }
+
+//    Map<String, AbstractChannelAdd> beans = webApplicationContext.getBeansOfType(AbstractChannelAdd.class);
+//    for (Map.Entry<String, AbstractChannelAdd> entry : beans.entrySet()) {
+//    AbstractChannelAdd strategy = entry.getValue();
+//    StrategyType strategyType = AnnotationUtils.findAnnotation(strategy.getClass(), StrategyType.class);
+//    if (strategyType != null) {
+//      WelcomeStateDTO.WelcomeStateEnum type = strategyType.type();
+//      if (!strategyTypeMap.containsKey(type.getBusinessType())) {
+//        strategyTypeMap.put(type.getBusinessType(), strategy);
+//      }
+//    }
+//  }
 }
