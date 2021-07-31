@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  * @author: xiaoye
  * @create: 2019-12-31 10:28
  **/
-@Component
+//@Component
 public class RpcServerCore implements ApplicationContextAware {
 
   @Value("${rpc.server}")

@@ -1,0 +1,33 @@
+#准备context上下文
+org.springframework.boot.SpringApplication.prepareContext
+    1 设置环境变量 environment
+    2 循环调用之前创建的 initializer.initialize(context) org.springframework.boot.SpringApplication.applyInitializers
+    3 通知上下文广播准备事件 listeners.contextPrepared(context)
+    4 创建bean工厂（都由他创建）
+    5 注入 springApplicationArguments and Banner
+    6 通过融合 加载主类（source）和context对bean的Definition 创建BeanDefinitionLoader并且load实例化
+    7 通知context listeners.contextLoaded(context)
+
+#刷新上下文
+org.springframework.boot.SpringApplication.refreshContext
+    1 取出需要resource属性并校验 and 创配listeners org.springframework.context.support.AbstractApplicationContext.prepareRefresh
+    2 获取beanFactory
+    3 准备beanFactory 忽略接口依赖 注册依赖
+    4 注册bean org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors
+        循环 beanFactoryPostProcessors
+        1 注册BeanDefinition org.springframework.boot.autoconfigure.SharedMetadataReaderFactoryContextInitializer.CachingMetadataReaderFactoryPostProcessor.postProcessBeanDefinitionRegistry(registry);
+            1 注册BeanDefinition registry.registerBeanDefinition(BEAN_NAME, definition);
+        2 获取BeanDefinition 都在 org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions
+            1 读取注解和xml注入类 放到ConfigurationClass 转化获取parser.parse(candidates);
+                1 扫描注解  org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass
+
+    5 创建webServer org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh
+    6 注册监听器 org.springframework.context.support.AbstractApplicationContext.registerListeners
+    7 初始化对象org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization
+        1 获取对象 getBean(weaverAwareName)
+            1 获取对象 org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean
+
+
+
+#刷新上下文后
+org.springframework.boot.SpringApplication.afterRefresh
