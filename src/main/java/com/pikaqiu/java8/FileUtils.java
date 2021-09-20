@@ -17,6 +17,29 @@ public class FileUtils {
 
 
     public static void main(String[] args) throws Exception{
+        delSuffix();
+    }
+
+    private static void delSuffix() throws Exception {
+        //扫描文件目录
+        ArrayList<File> objects = scanFilesWithRecursion("E:\\学习视频\\面向未来微服务Spring Cloud Alibaba微服务从入门到进阶（全）");
+
+        for (int i = 0; i < objects.size(); i++) {
+            File file = objects.get(i);
+            String name = file.getName();
+            if (name.contains("【51优质资源 www.51data.org】")) {
+                file.renameTo(new File(file.getAbsolutePath().replace("【51优质资源 www.51data.org】", "")));
+            }
+
+        }
+    }
+
+
+    /**
+     * 删除相同文件
+     * @throws Exception
+     */
+    private static void delSameFile() throws Exception {
         //扫描文件目录
         ArrayList<File> objects = scanFilesWithRecursion("E:\\学习视频");
 
@@ -28,8 +51,7 @@ public class FileUtils {
         ArrayList<String> fileNames = new ArrayList<>();
         for (Map.Entry<String, File> queueFile : fileMap.entrySet()) {
             String sameFileName = queueFile.getValue().getAbsolutePath().replace(".mp4", "") + "(1).mp4";
-            if (fileMap.containsKey(sameFileName) &&
-                    fileMap.get(sameFileName).length() == queueFile.getValue().length()) {
+            if (fileMap.containsKey(sameFileName) && fileMap.get(sameFileName).length() == queueFile.getValue().length()) {
                 fileNames.add(sameFileName);
             }
         }
@@ -39,6 +61,7 @@ public class FileUtils {
             file.delete();
         }
     }
+
     /**
      * @return ArrayList<Object>
      * @author
