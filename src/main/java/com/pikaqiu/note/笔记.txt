@@ -7,19 +7,19 @@ jinfo -flags 【pid】
 jstat -gcutil 【pid】
 查看运行内存各个区域内存信息
 
-jstat -class -【pid】
+jstat -class 【pid】
 查看类加载信息
 
-jstat -compiler -【pid】
+jstat -compiler 【pid】
 查看类编译信息
 
-jstat -gc -【pid】
+jstat -gc 【pid】
 查看各个区域内存使用和未使用情况
 
 javac 编译 、javap 反编译
 
 查看堆详细信息 各个区域配置大小 实际使用等详细信息
-jmap -heap -【pid】
+jmap -heap 【pid】
 
 下载内存信息 b 二进制格式 文件名字随便取
 jmap -dump:format=b,file=dump.hprof 【pid】
