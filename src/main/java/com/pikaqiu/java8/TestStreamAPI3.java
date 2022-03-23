@@ -171,4 +171,34 @@ public class TestStreamAPI3 {
 
         System.out.println(sum.get());
     }
+
+    /**
+     * 去重
+     * @param args
+     */
+    @Test
+    public static void test10(String[] args) {
+        List<MemberVo> chatMemberList = Arrays.asList(
+                new MemberVo(1, "1name"),
+                new MemberVo(7, "7name"),
+                new MemberVo(3, "3name"),
+                new MemberVo(3, "3name"),
+                new MemberVo(4, "4name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(null, "5name"),
+                new MemberVo(5, "5name"),
+                new MemberVo(4, "4name"),
+                new MemberVo(3, "3name"),
+                new MemberVo(6, "6name"),
+                new MemberVo(7, "7name"));
+        List<MemberVo> collect = chatMemberList.stream().collect(
+                Collectors.collectingAndThen(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(MemberVo::getMemberId))), ArrayList::new)
+        );
+        System.out.println(collect);
+    }
 }
