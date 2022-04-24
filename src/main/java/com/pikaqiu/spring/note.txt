@@ -24,9 +24,10 @@ org.springframework.boot.SpringApplication.refreshContext
     5 创建webServer org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh
     6 注册监听器 org.springframework.context.support.AbstractApplicationContext.registerListeners
     7 初始化对象org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization
-        1 获取对象 getBean(weaverAwareName)
+        1 获取对象 org.springframework.beans.factory.config.ConfigurableListableBeanFactory.preInstantiateSingletons
             1 获取对象 org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean
-
+                1 获取对象 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean
+                    1 获取单例对象 org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton
 
 
 #刷新上下文后

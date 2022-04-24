@@ -1,8 +1,5 @@
 package com.pikaqiu.map_struct;
-import org.springframework.core.annotation.AnnotationUtils;
-
 import java.util.Date;
-import java.util.Map;
 
 /**
  * <p> test </p>
@@ -25,7 +22,14 @@ public class Test {
 
   }
 
-//    Map<String, AbstractChannelAdd> beans = webApplicationContext.getBeansOfType(AbstractChannelAdd.class);
+  /**
+   * 希尔排序
+   * @param array
+   * @return
+   */
+  public int[] arraySort(int[] array) {
+
+  }
 //    for (Map.Entry<String, AbstractChannelAdd> entry : beans.entrySet()) {
 //    AbstractChannelAdd strategy = entry.getValue();
 //    StrategyType strategyType = AnnotationUtils.findAnnotation(strategy.getClass(), StrategyType.class);
