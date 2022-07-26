@@ -24,7 +24,7 @@ jmap -heap 【pid】
 下载内存信息 b 二进制格式 文件名字随便取
 jmap -dump:format=b,file=dump.hprof 【pid】
 
-查看线程死锁信息
+查看线程栈信息
 jstack 【pid】
 
 打印线程信息
