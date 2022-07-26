@@ -1,8 +1,8 @@
 package com.pikaqiu.exer;
 
 @FunctionalInterface
-public interface MyFunction {
+public interface MyFunction<K,V> {
 
-	String getValue(String str);
+	V getValue(String K);
 
 }
