@@ -28,7 +28,7 @@ public class Test {
    * @return
    */
   public int[] arraySort(int[] array) {
-
+    return null;
   }
 //    for (Map.Entry<String, AbstractChannelAdd> entry : beans.entrySet()) {
 //    AbstractChannelAdd strategy = entry.getValue();

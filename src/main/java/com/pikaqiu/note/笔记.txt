@@ -21,6 +21,9 @@ javac 编译 、javap 反编译
 查看堆详细信息 各个区域配置大小 实际使用等详细信息
 jmap -heap 【pid】
 
+打印每个class的实例数目,内存占用,类全名信息.
+jmap -histo 【pid】
+
 下载内存信息 b 二进制格式 文件名字随便取
 jmap -dump:format=b,file=dump.hprof 【pid】
 
