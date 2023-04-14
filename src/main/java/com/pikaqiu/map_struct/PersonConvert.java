@@ -21,7 +21,7 @@ public interface PersonConvert {
    * 自定义方法
    * @param address
    * @return
-   * @Named("address") 用于指定使用方法的字段
+   * 注解@Named("address") 用于指定使用方法的字段
    */
   @Named("address")
   default String homeAddressToString(String address){
