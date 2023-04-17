@@ -23,7 +23,7 @@ public interface PersonConvert {
    * @return
    * 注解@Named("address") 用于指定使用方法的字段
    */
-  @Named("address")
+  @Named("homeAddressToString")
   default String homeAddressToString(String address){
     return address + "哈哈";
   }
