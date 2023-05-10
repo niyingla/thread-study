@@ -1,0 +1,49 @@
+import com.pikaqiu.drools.dto.OrderRequest
+import com.pikaqiu.drools.enums.CustomerType
+global com.pikaqiu.drools.dto.OrderDiscount orderDiscount
+
+dialect "mvel"
+
+//规则文件
+//我们使用了一个名为orderDiscount 的全局参数，可以在多个规则之间共享。
+//drl 文件可以包含一个或多个规则。我们可以使用mvel语法来指定规则。此外，每个规则使用rule关键字进行描述。
+//每个规则when-then语法来定义规则的条件。
+//根据订单请求的输入值，我们正在为结果添加折扣。如果规则表达式匹配，每个规则都会向全局结果变量添加额外的折扣。
+
+// 规则1: 根据年龄判断
+rule "Age based discount"
+    when
+        // 当客户年龄在20岁以下或者50岁以上
+        OrderRequest(age < 20 || age > 50)
+    then
+        // 则添加10%的折扣
+        System.out.println("==========Adding 10% discount for Kids/ senior customer=============");
+        orderDiscount.setDiscount(orderDiscount.getDiscount() + 10);
+end
+
+// 规则2： 根据客户类型的规则
+rule "Customer type based discount - Loyal customer"
+    when
+        // 当客户类型是LOYAL
+        OrderRequest(customerType.getValue == "LOYAL")
+    then
+        // 则增加5%的折扣
+        System.out.println("==========Adding 5% discount for LOYAL customer=============");
+        orderDiscount.setDiscount(orderDiscount.getDiscount() + 5);
+end
+
+rule "Customer type based discount - others"
+    when
+    OrderRequest(customerType.getValue != "LOYAL")
+then
+    System.out.println("==========Adding 3% discount for NEW or DISSATISFIED customer=============");
+    orderDiscount.setDiscount(orderDiscount.getDiscount() + 3);
+end
+
+rule "Amount based discount"
+    when
+        OrderRequest(amount > 1000L)
+    then
+        System.out.println("==========Adding 5% discount for amount more than 1000$=============");
+    orderDiscount.setDiscount(orderDiscount.getDiscount() + 5);
+end
