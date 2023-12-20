@@ -1,5 +1,6 @@
 package com.pikaqiu.My;
 
+import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -47,10 +48,26 @@ public class Limite {
   }
 
   public static void main(String[] args) throws Exception{
-    limit();
+    testCache();
 //    redPackage1();
 //    redPackage2();
 
+  }
+
+  public static void testCache()throws Exception {
+    Cache<Integer, Integer> tenantCache = CacheBuilder.newBuilder()
+            // 设置初始容量为100
+            .initialCapacity(32)
+            //最大容量
+            .maximumSize(1000)
+            //有效时间10分钟
+            .expireAfterWrite(10, TimeUnit.SECONDS)
+            .build();
+    System.out.println(tenantCache.getIfPresent(1));
+    tenantCache.put(1, 222);
+    System.out.println(tenantCache.getIfPresent(1));
+    Thread.sleep(10000);
+    System.out.println(tenantCache.getIfPresent(1));
   }
 
 
