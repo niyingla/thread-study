@@ -2,6 +2,7 @@ package com.pikaqiu.My;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,12 @@ public class TestController {
 
     @GetMapping("testRetry")
     public void testRetry(){
+        System.out.println(LocalDateTime.now());
+        testService.testRetry();
+    }
+
+    @PostMapping("testRetry")
+    public void testPostRetry(){
         System.out.println(LocalDateTime.now());
         testService.testRetry();
     }
