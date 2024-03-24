@@ -57,6 +57,7 @@ public class RedisLock extends AbstractLock {
     }
 
     private boolean tryLockInternal(long time, TimeUnit timeUnit) {
+        // 2.使用lua脚本进行加锁
         String luaScript = "if redis.call('exist', KEYS[1]) == 0 " +
                 "then redis.call('hincrby', KEYS[1], 'ARGV[1]', 1) " +
                 "redis.call('pexpire', KEYS[1], ARGV[2]) " +
@@ -69,6 +70,7 @@ public class RedisLock extends AbstractLock {
         if (result != null && result == 1) {
             new Thread(() -> {
                 while (true) {
+                    // 3.使用lua脚本进行续期
                     String expireScript = "if redis.call('hexists', KEYS[1], 'ARGV[1]') == 0 " +
                             "then return 0; else redis.call('pexpire', KEYS[1], ARGV[2]) return 1 end";
                     Long expireResult = stringRedisTemplate.execute(new DefaultRedisScript<>(expireScript, Long.class), Collections.singletonList(key), UUID.randomUUID().toString(), String.valueOf(timeUnit.toSeconds(time)));
@@ -89,13 +91,16 @@ public class RedisLock extends AbstractLock {
 
     }
 
+
     @Override
     public void unlock() {
-        //判断当前持有锁线程是否等于本线程，是则直接删除，不是直接return
-        String result = stringRedisTemplate.opsForValue().get(this.lockName);
-        if (this.uuid.equals(result)) {
-            stringRedisTemplate.delete(this.lockName);
-        }
-
+        // 4.使用lua脚本进行解锁
+        String luaScript = "if redis.call('hexists', KEYS[1], 'ARGV[1]') == 0 " +
+                "then return 0 ;" +
+                "end " +
+                "local count = redis.call('hincrby', KEYS[1], 'ARGV[1]', -1) " +
+                "if count > 0 then return 1 else redis.call('del', KEYS[1]) return 0 end";
+        stringRedisTemplate.execute(new DefaultRedisScript<>(luaScript, Long.class),
+                Collections.singletonList(key), uuid);
     }
 }
