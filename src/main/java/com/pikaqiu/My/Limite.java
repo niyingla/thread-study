@@ -7,8 +7,10 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.RateLimiter;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -48,10 +50,42 @@ public class Limite {
   }
 
   public static void main(String[] args) throws Exception{
-    testCache();
+//    testCache();
 //    redPackage1();
 //    redPackage2();
+    for (int i = 0; i < 10; i++) {
+      extracted();
 
+    }
+  }
+
+  private static void extracted() {
+    Integer intervalTime = 5;
+    try {
+      //开始计时
+      LocalDateTime start = LocalDateTime.now();
+      System.out.println(start + "开始计时");
+      //每隔aiLiveProperties.getIntervalTime()秒请求一次
+      CompletableFuture.runAsync(() -> {
+        //请求接口 (10s内 随机)
+        try {
+          Thread.sleep(new Random().nextInt(10000));
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }).get(intervalTime, TimeUnit.SECONDS);
+      //结束计时
+      LocalDateTime end = LocalDateTime.now();
+      System.out.println(end + "结束计时");
+      //计算耗时
+      long seconds = end.getSecond() - start.getSecond();
+      //如果耗时小于aiLiveProperties.getIntervalTime()秒 则等待剩余时间
+      if (seconds < intervalTime) {
+        TimeUnit.SECONDS.sleep(intervalTime - seconds);
+      }
+    } catch (Exception e) {
+      System.out.println("修复直播数据异常");
+    }
   }
 
   public static void testCache()throws Exception {
