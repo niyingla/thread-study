@@ -6,6 +6,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class ConsistentHash {
+
+    private String SALT = ":zxfhzdd:";
     /**
      * 用于存储一致性hash节点 的 排序map
      * key ： 虚拟节点hash值
@@ -48,7 +50,7 @@ public class ConsistentHash {
      * @return
      */
     public String getMd5Key(String node, Integer index) {
-        byte[] bytes = DigestUtils.md5Digest((node + ":salt:" + index).getBytes());
+        byte[] bytes = DigestUtils.md5Digest((node + SALT + index).getBytes());
         return new String(bytes);
     }
 
@@ -78,8 +80,7 @@ public class ConsistentHash {
     public static void main(String[] args) {
         String[] nodes = {"Node1", "Node2", "Node3"};
         ConsistentHash consistentHash = new ConsistentHash(520, nodes); // 使用50个虚拟节点
-
-        String key = "myKey";
+        String key = "myKey2";
         String assignedNode = consistentHash.get(key);
         System.out.println("Key: " + key + " is assigned to Node: " + assignedNode);
     }
