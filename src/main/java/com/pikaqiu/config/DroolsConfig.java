@@ -23,7 +23,8 @@ public class DroolsConfig {
     private static final KieServices kieServices = KieServices.Factory.get();
 
     /**
-     * 定义了一个 KieContainer的Spring Bean ，KieContainer用于通过加载应用程序的/resources文件夹下的规则文件来构建规则引擎。
+     * 定义了一个 KieContainer的Spring Bean ，
+     * KieContainer用于通过加载应用程序的/resources文件夹下的规则文件来构建规则引擎。
      * 创建KieFileSystem实例并配置规则引擎并从应用程序的资源目录加载规则的 DRL 文件。
      * 使用KieBuilder实例来构建 drools 模块。我们可以使用KieSerive单例实例来创建 KieBuilder 实例。
      * 最后，使用 KieService 创建一个 KieContainer 并将其配置为 spring bean。
@@ -31,12 +32,16 @@ public class DroolsConfig {
      */
     @Bean
     public KieContainer kieContainer() {
+        // 创建一个 KieFileSystem 实例
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+        // 将规则文件加载到 KieFileSystem 中
         kieFileSystem.write(ResourceFactory.newClassPathResource(RULES_CUSTOMER_RULES_DRL));
+        //
         KieBuilder kb = kieServices.newKieBuilder(kieFileSystem);
         kb.buildAll();
+        // 获取 KieModule
         KieModule kieModule = kb.getKieModule();
-        KieContainer kieContainer = kieServices.newKieContainer(kieModule.getReleaseId());
-        return kieContainer;
+        // 创建 KieContainer
+        return kieServices.newKieContainer(kieModule.getReleaseId());
     }
 }

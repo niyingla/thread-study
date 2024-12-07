@@ -34,10 +34,10 @@ end
 
 rule "Customer type based discount - others"
     when
-    OrderRequest(customerType.getValue != "LOYAL")
-then
-    System.out.println("==========Adding 3% discount for NEW or DISSATISFIED customer=============");
-    orderDiscount.setDiscount(orderDiscount.getDiscount() + 3);
+        OrderRequest(customerType.getValue != "LOYAL")
+    then
+        System.out.println("==========Adding 3% discount for NEW or DISSATISFIED customer=============");
+        orderDiscount.setDiscount(orderDiscount.getDiscount() + 3);
 end
 
 rule "Amount based discount"

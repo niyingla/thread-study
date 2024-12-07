@@ -17,4 +17,6 @@ public class OrderDiscount {
      * 折扣
      */
     private Integer discount = 0;
+
+    private String[][] sss = new String[100][1000];
 }
