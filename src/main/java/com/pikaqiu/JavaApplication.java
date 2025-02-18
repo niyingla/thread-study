@@ -13,7 +13,7 @@ public class JavaApplication {
 
     public static void main(String[] args)throws Exception {
         SqlTest.test();
-        System.out.println("开始启动啦!!!");
+        System.out.println("开始启动啦啦啦!!!");
         SpringApplication.run(JavaApplication.class, args);
 
 
