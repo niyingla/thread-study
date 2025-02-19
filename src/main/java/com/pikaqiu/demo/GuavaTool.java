@@ -27,25 +27,43 @@ public class GuavaTool {
         //使用value获取key
         System.out.println(inverse.get("Titan"));
     }
+
     @Test
-    public void multiMap(){
+    public void multiMap() {
         Multimap<String, Integer> multimap = ArrayListMultimap.create();
-        multimap.put("day",1);
-        multimap.put("day",2);
-        multimap.put("day",8);
-        multimap.put("month",3);
+        multimap.put("day", 1);
+        multimap.put("day", 2);
+        multimap.put("day", 8);
+        multimap.put("month", 3);
     }
 
     @Test
-    public void rangeMap(){
+    public void rangeMap() {
         RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
-        rangeMap.put(Range.closedOpen(0,60),"fail");
-        rangeMap.put(Range.closed(60,90),"satisfactory");
-        rangeMap.put(Range.openClosed(90,100),"excellent");
+        rangeMap.put(Range.closedOpen(0, 60), "fail");
+        rangeMap.put(Range.closed(60, 90), "satisfactory");
+        rangeMap.put(Range.openClosed(90, 100), "excellent");
 
         System.out.println(rangeMap.get(59));
         System.out.println(rangeMap.get(60));
         System.out.println(rangeMap.get(90));
         System.out.println(rangeMap.get(91));
+    }
+
+    /**
+     * 包含两个key的map
+     */
+    @Test
+    public void hashBasedTable() {
+        Table<String, String, Integer> hashBasedTable = HashBasedTable.create();
+        hashBasedTable.put("day", "1", 1);
+        hashBasedTable.put("day", "2", 2);
+        hashBasedTable.put("day", "8", 8);
+        hashBasedTable.put("month", "3", 3);
+
+        System.out.println(hashBasedTable.get("day", "1"));
+        System.out.println(hashBasedTable.get("day", "2"));
+        System.out.println(hashBasedTable.get("day", "8"));
+        System.out.println(hashBasedTable.get("month", "3"));
     }
 }
