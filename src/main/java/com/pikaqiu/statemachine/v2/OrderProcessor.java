@@ -61,15 +61,15 @@ public class OrderProcessor {
     private boolean sendEvent(Message<OrderEvents> message) {
         Order order = (Order) message.getHeaders().get("order");
         //状态机开始
-//        orderStateMachine.start();
-        //重置状态
+        orderStateMachine.start();
+        //重新通过DefaultStateMachinePersister 加载状态，不然默认就是init
         persister.restore(orderStateMachine, order);
         //发送变更事件
         boolean result = orderStateMachine.sendEvent(message);
         //持久化事件
         persister.persist(orderStateMachine, order);
         //状态机停止
-//        orderStateMachine.stop();
+        orderStateMachine.stop();
         return result;
     }
 }
