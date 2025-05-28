@@ -37,18 +37,17 @@ public class OrderProcessor {
 
     @SneakyThrows
     public void init() {
-        Thread.sleep(1);
-        for (int i = 0; i < 100; i++) {
-//            Order order = new Order();
-//            order.setId(i);
-//            order.setStatus(OrderStatus.INIT);
-//            process(order, OrderEvents.PAY);
-
-            Thread.sleep(1000);
+        for (int i = 0; i < 1; i++) {
             Order order = new Order();
             order.setId(i);
             order.setStatus(OrderStatus.INIT);
-            process(order, OrderEvents.CANNEL);
+            process(order, OrderEvents.PAY);
+
+            Thread.sleep(1000);
+            Order order2 = new Order();
+            order2.setId(i);
+            order2.setStatus(OrderStatus.INIT);
+            process(order2, OrderEvents.CANNEL);
 
             Thread.sleep(1000);
             Order order1 = new Order();
@@ -61,8 +60,16 @@ public class OrderProcessor {
     @SneakyThrows
     private boolean sendEvent(Message<OrderEvents> message) {
         Order order = (Order) message.getHeaders().get("order");
-        boolean result = orderStateMachine.sendEvent(message);
+        //状态机开始
+//        orderStateMachine.start();
+        //重置状态
         persister.restore(orderStateMachine, order);
+        //发送变更事件
+        boolean result = orderStateMachine.sendEvent(message);
+        //持久化事件
+        persister.persist(orderStateMachine, order);
+        //状态机停止
+//        orderStateMachine.stop();
         return result;
     }
 }

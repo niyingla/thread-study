@@ -66,8 +66,7 @@ public class OrderStateMachineConfig extends StateMachineConfigurerAdapter<Order
         return new DefaultStateMachinePersister<>(new StateMachinePersist<OrderStatus, OrderEvents,Order>() {
             @Override
             public void write(StateMachineContext<OrderStatus, OrderEvents> context, Order order) throws Exception {
-                System.out.println("写入持久化");
-                //todo 持久化处理
+                System.out.println("----------------写入持久化-----------------");
             }
 
             /**
