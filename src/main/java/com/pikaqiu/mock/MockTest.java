@@ -119,7 +119,7 @@ public class MockTest {
         when(mockMap.put(anyString(), anyInt())).thenReturn("value3");
         System.out.println(mockMap.put("key3", 3));     //value3
         System.out.println(mockMap.put(anyString(), anyInt()));     //value3
-        System.out.println(mockMap.put("key3", anyInt()));    //异常
+        //System.out.println(mockMap.put("key3", anyInt()));    //异常
 
         // 行为验证时，也支持使用参数匹配器
         verify(mockMap, atLeastOnce()).get(anyString());

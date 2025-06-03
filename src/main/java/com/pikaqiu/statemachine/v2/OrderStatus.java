@@ -10,5 +10,5 @@ package com.pikaqiu.statemachine.v2;
 
 public enum OrderStatus {
     //待支付，待发货，待收货，订单结束
-    INIT , PAYED, WAIT_DELIVERY,CANNEL,I_CANNEL,SHIPPED, RECEIVED;
+    INIT , PAYED, WAIT_DELIVERY,CANNEL, RECEIVED;
 }
