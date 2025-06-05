@@ -63,10 +63,10 @@ public static boolean isDynameicParam(String var){
      * @param var 注解中获取的变量字符串
      */
     public static String handle(Method method, Object[] args, String var) {
-        if(method==null||args==null|| StringUtils.isBlank(var)){
+        if (method == null || args == null || StringUtils.isBlank(var)) {
             return "";
         }
-        if(!isDynameicParam(var)){
+        if (!isDynameicParam(var)) {
             //不是动态参数,直接原样返回
             return var;
         }
@@ -86,9 +86,9 @@ public static boolean isDynameicParam(String var){
                 valList.add(o);
             }
         }
-        String pattern=var.replaceAll(regex.toString(),"%s");
+        String pattern = var.replaceAll(regex.toString(), "%s");
         String resolvedVar = String.format(pattern, valList.toArray());
-        log.info("处理后的动态参数:{}",resolvedVar);
+        log.info("处理后的动态参数:{}", resolvedVar);
         return resolvedVar;
     }
     private static Object parserVar(Method method, Object[] objects, String var){
