@@ -31,8 +31,7 @@ public class OrderProcessor {
     public Boolean process(Order order, OrderEvents event) {
         Message<OrderEvents> message = MessageBuilder.withPayload(event)
                 .setHeader("order", order).build();
-        boolean b = sendEvent(message);
-        return b;
+        return sendEvent(message);
     }
 
     @SneakyThrows
