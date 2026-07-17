@@ -21,7 +21,21 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 抽奖核心服务。一次抽奖 = 取配置 -> 生成随机数 -> 执行原子 Lua -> 解析结果 -> 命中则异步投递发奖。
+ * 抽奖核心服务。
+ *
+ * <p>职责:把一次抽奖翻译成对 Redis 抽奖脚本({@code lottery_draw.lua})的一次原子调用,并把脚本
+ * 结果翻译回业务结果。真正的并发控制(防超卖、限次、概率、时间片释放)全部下沉到脚本里靠 Redis
+ * 单线程串行保证,本类只做"参数组装 + 结果解析 + 命中后异步发奖",本身无状态,可水平扩展。
+ *
+ * <p>一次抽奖流程:取配置(本地缓存) -> 每个奖品生成一个随机数 -> 执行原子 Lua -> 解析
+ * {@code {status, prizeId}} -> 命中且非重放时把中奖事件投递给 {@link LotteryRecordSender} 异步落库发奖。
+ *
+ * <p>设计要点:
+ * <ul>
+ *   <li>随机数在应用层生成后传入脚本,而非在脚本内取——规避 Redis Lua 内 math.random 的主从复制语义问题;</li>
+ *   <li>时间戳也由应用层传入,保证脚本在主从/回放下结果一致;</li>
+ *   <li>KEYS 全部带 {@code {actId}} hash tag,保证多 key 脚本在 Redis Cluster 下同 slot 可执行。</li>
+ * </ul>
  *
  * @author xiaoye
  */
@@ -56,22 +70,24 @@ public class LotteryService {
     private LotteryRecordSender lotteryRecordSender;
 
     /**
-     * 抽奖。
+     * 抽奖。整个方法无锁、无本地状态,所有并发安全性由 Redis 脚本保证。
      *
-     * @param request 抽奖请求
-     * @return 抽奖结果
+     * @param request 抽奖请求(actId、userId 必填;requestId 建议客户端自带以获得幂等)
+     * @return 抽奖结果(中奖/未中奖/未开始/已结束/次数用尽/活动不存在)
      */
     public DrawResult draw(DrawRequest request) {
-        // 1. 取活动配置(本地 Caffeine 缓存,未命中回源加载)
+        // 1. 取活动配置(本地 Caffeine 缓存,未命中回源加载);活动不存在直接短路
         ActivityConfig config = lotteryConfigService.getConfig(request.getActId());
         if (config == null) {
             return DrawResult.of(DrawStatus.ACTIVITY_NOT_FOUND);
         }
 
-        // 2. requestId 为空则生成随机值(此时不具备幂等能力,客户端应尽量自带稳定 requestId)
+        // 2. requestId 是幂等的唯一依据:客户端自带同一值时,重试/重复提交只认首次结果。
+        //    为空则生成随机 UUID —— 每次都不同,等于放弃幂等,故仅作兜底,生产应要求客户端传入。
         String requestId = StringUtils.isBlank(request.getRequestId())
                 ? UUID.randomUUID().toString()
                 : request.getRequestId();
+        // now 与随机数都在应用层生成后传入脚本,保证脚本在主从复制/回放下行为确定
         long now = System.currentTimeMillis();
 
         // 3. 组装 KEYS/ARGV,一次原子 Lua 完成:幂等 -> 时间窗 -> 限次 -> 独立概率 -> 懒惰释放 -> 扣库存
@@ -179,6 +195,9 @@ public class LotteryService {
         return result;
     }
 
+    /**
+     * 组装投递给发奖链路的中奖事件。requestId 会随消息带到消费者,作为落库/发奖的幂等键。
+     */
     private WinRecord buildWinRecord(DrawRequest request, String requestId, long now, DrawResult result) {
         WinRecord record = new WinRecord();
         record.setActId(request.getActId());
