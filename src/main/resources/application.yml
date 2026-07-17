@@ -10,3 +10,36 @@ spring:
         max-active: 8
         max-wait: -1
         max-idle: 8
+  # ===== 抽奖 Kafka 版发奖依赖:MySQL + Kafka(按需改成你的地址)=====
+  datasource:
+    url: jdbc:mysql://localhost:3306/lottery?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8mb4
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # -1:启动不预连,MySQL 未就绪也能启动(首次查询才建连)
+      initialization-fail-timeout: -1
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      acks: 1
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: lottery-record-consumer
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      # broker/topic 缺失不致启动失败
+      missing-topics-fatal: false
+
+# 发奖投递方式:kafka=Kafka 异步落库+发奖(需 MySQL+Kafka);log=本地日志(无外部依赖)
+lottery:
+  record:
+    sender: kafka
+  reconcile:
+    # 对账补偿任务执行间隔(毫秒)
+    interval-ms: 60000
